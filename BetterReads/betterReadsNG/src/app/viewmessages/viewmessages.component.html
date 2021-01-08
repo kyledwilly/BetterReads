@@ -1,0 +1,17 @@
+<div>
+    <h3>Messages</h3>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Sender ID</th>
+            <th></th>
+        </tr>
+        <tr *ngFor="let Message of Messages">
+            <td>{{ Message.message_id | json}}</td>
+        <!-- <td>{{ Comment.comment_date | json }}</td>-->
+            <td>{{ Message.sender.id | json}}</td>
+            <td>{{ Message.message }}</td>
+            <!-- <td>{{ Message.parent | json}}</td> -->
+        </tr>
+    </table>
+</div>

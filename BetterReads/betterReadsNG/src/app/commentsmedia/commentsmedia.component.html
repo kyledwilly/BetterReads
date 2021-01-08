@@ -1,0 +1,20 @@
+<div>
+    <h3>Comments</h3>
+    <table>
+        <tr>
+            <th>Comment ID</th>
+            <th>User</th>
+            <th>Username</th>
+            <th>Comment</th>
+            <th>Date written</th>
+        </tr>
+        <tr *ngFor="let Comment of Comments">
+            <td>{{ Comment.comment_id | json }}</td>
+        <!-- <td>{{ Comment.comment_date | json }}</td>-->
+            <td>{{Comment.user.id | json }} </td>
+            <td>{{(Comment.user.username | json).replace("\"", "").replace("\"", "")  }}</td>
+            <td>{{ Comment.message }}</td>
+            <td>{{(Comment.comment_date.month| json).replace("\"", "").replace("\"", "") | titlecase}} {{Comment.comment_date.dayOfMonth | json}}, {{Comment.comment_date.year | json}} </td>
+        </tr>
+    </table>
+</div>

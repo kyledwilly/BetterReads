@@ -1,0 +1,105 @@
+<div class="container">
+    <span title="Search Media."><fa-icon [icon]="faSearch" size="3x"></fa-icon></span>
+<ng-container *ngIf="!searchActivated">
+    <div *ngIf="basicSearch">
+        <div>
+            <label for="searchBar">Search: </label>
+            <input type="text" id="searchBar" name="searchBar" [(ngModel)]="searchContent" />
+            <button type="button" id="basicSearchButton" (click)="search()">Search!</button>
+            <button type="button" id="switchToAdvancedSearch" (click)="switchSearchComplexity()">Advanced Search</button>
+        </div>
+        <div *ngIf="basicSearch">
+            <label>
+                <input type="radio" name="searchType" value="title" (click)="setType('title')" [checked]="true" ngModel />
+                Title
+            </label>
+            <label>
+                <input type="radio" name="searchType" value="author" (click)="setType('author')" ngModel />
+                Creator
+            </label>
+        </div>
+    </div>
+    <div *ngIf="advancedSearch">
+        <table>
+        <tr>
+        <td>
+            <label for="minDate">Earliest Date: 
+                <input type="date" name="minDate" [(ngModel)]="minDate">
+            </label>
+        </td>
+        <td>
+            <label for="maxDate">Latest Date:
+                <input type="date" name="maxDate" [(ngModel)]="maxDate">
+            </label>
+        </td>
+        </tr>
+        <tr>
+        <td>
+            <label for="minAvgRating">Minimum Average Rating:
+                <input type="number" name="minAvgRating" placeholder = "0 to 100" [(ngModel)]="minAvgRating">
+            </label>
+        </td>
+        <td>
+            <label for="minNumRatings">Minimum Number of Ratings:
+                <input type="number" name="minNumRatings" [(ngModel)]="minNumRatings">
+            </label>
+        </td>
+        </tr>
+        <tr>
+        <td>
+            <label for="includeTag">Include Tag:
+                <input type="text" name="includeTag" [(ngModel)]="includeTag">
+            </label>
+        </td>
+        <td>
+            <label for="excludeTag">Exclude Tag:
+                <input type="text" name="excludeTag" [(ngModel)]="excludeTag">
+            </label>
+        </td>
+        </tr>
+        <tr>
+        <td>
+            <label for="genre">Genre:
+                <select [(ngModel)]="genre">
+                    <option value=1>Science Fiction/Fantasy</option>
+                    <option value=2>Biography</option>
+                    <option value=3>Science and Technology</option>
+                    <option value=5>Poetry</option>
+                    <option value=6>Non-Fiction</option>
+                    <option value=7>Contemporary Fiction</option>
+                    <option value=8>Historical Fiction</option>
+                    <option value=9>Juvenile Fiction</option>
+                    <option value=10>History</option>
+                    <option value=11>Mystery</option>
+                    <option value=12>Thriller</option>
+                    <option value=13>Horror</option>
+                  </select>
+            </label>
+        </td>
+        <td>
+            <button type="button" (click)="search()">Search</button>
+            <button type="button" (click)="switchSearchComplexity()">Basic Search</button>
+        </td>
+        </tr>
+        </table>
+    </div>
+</ng-container>
+<ng-container *ngIf="showResults">
+    <ul *ngFor="let result of searchResults">
+        <li>
+            <strong>ID:</strong> {{result.id }}<br>
+            <strong>Title:</strong> {{result.title}}<br>
+            <strong>Creator:</strong> {{result.creator}}<br>
+            <strong>Type:</strong> {{result.mediaType.name}}<br>
+            <strong>Genre:</strong> {{result.genre.name}}<br>
+            <button type="button" (click)="viewMedia(result.id)">View</button>
+        </li>
+    </ul>
+    <div>
+        <button type="button" (click)="reset()">Search Again</button>
+    </div>
+</ng-container>
+<ng-container *ngIf="mediaView">
+    <app-viewmedia [loggedUser]="loggedUser" [mediaId]="mediaViewId" (returnToSearch)="reset()"></app-viewmedia>
+</ng-container>
+</div>
